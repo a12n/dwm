@@ -41,6 +41,9 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
+/* custom functions declarations */
+void nextlayout(const Arg *arg);
+
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
@@ -71,8 +74,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_space,  nextlayout,     {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -109,3 +111,12 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
+void
+nextlayout(const Arg *arg) {
+    unsigned int i = 0;
+    unsigned int n = sizeof layouts / sizeof layouts[0];
+    while (i < n && (layouts + i) != selmon->lt[selmon->sellt]) {
+        ++i;
+    }
+    setlayout(&((Arg){ .v = layouts + (i + 1) % n }));
+}
