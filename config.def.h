@@ -158,25 +158,25 @@ bstack(Monitor *m) {
 
 void
 nextlayout(const Arg *arg) {
-    unsigned int i = 0;
-    unsigned int n = sizeof layouts / sizeof layouts[0];
-    while (i < n && (layouts + i) != selmon->lt[selmon->sellt]) {
-        ++i;
-    }
-    setlayout(&((Arg){ .v = layouts + (i + 1) % n }));
+	unsigned int i = 0;
+	unsigned int n = sizeof layouts / sizeof layouts[0];
+	while (i < n && (layouts + i) != selmon->lt[selmon->sellt]) {
+		++i;
+	}
+	setlayout(&((Arg){ .v = layouts + (i + 1) % n }));
 }
 
 void
 setxkbgroup(const Arg *arg) {
-    static int hasxkb = -1;
-    if (hasxkb < 0) {
-        int major = XkbMajorVersion;
-        int minor = XkbMinorVersion;
-        hasxkb = XkbQueryExtension(dpy, NULL, NULL, NULL, &major, &minor);
-    }
-    if (hasxkb > 0) {
-        if (arg != NULL && arg->ui < 4) {
-            XkbLockGroup(dpy, XkbUseCoreKbd, arg->ui);
-        }
-    }
+	static int hasxkb = -1;
+	if (hasxkb < 0) {
+		int major = XkbMajorVersion;
+		int minor = XkbMinorVersion;
+		hasxkb = XkbQueryExtension(dpy, NULL, NULL, NULL, &major, &minor);
+	}
+	if (hasxkb > 0) {
+		if (arg != NULL && arg->ui < 4) {
+			XkbLockGroup(dpy, XkbUseCoreKbd, arg->ui);
+		}
+	}
 }
