@@ -1,8 +1,11 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XKBlib.h>
+
 /* custom functions declarations */
 void bstack(Monitor *m);
 void nextlayout(const Arg *arg);
+void setxkbgroup(const Arg *arg);
 
 /* appearance */
 static const char *fonts[] = {
@@ -84,6 +87,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_u,      setxkbgroup,    {.ui = 0 } },
+	{ MODKEY,                       XK_r,      setxkbgroup,    {.ui = 1 } },
+	{ MODKEY,                       XK_e,      setxkbgroup,    {.ui = 2 } },
+	{ MODKEY,                       XK_g,      setxkbgroup,    {.ui = 3 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -157,4 +164,19 @@ nextlayout(const Arg *arg) {
         ++i;
     }
     setlayout(&((Arg){ .v = layouts + (i + 1) % n }));
+}
+
+void
+setxkbgroup(const Arg *arg) {
+    static int hasxkb = -1;
+    if (hasxkb < 0) {
+        int major = XkbMajorVersion;
+        int minor = XkbMinorVersion;
+        hasxkb = XkbQueryExtension(dpy, NULL, NULL, NULL, &major, &minor);
+    }
+    if (hasxkb > 0) {
+        if (arg != NULL && arg->ui < 4) {
+            XkbLockGroup(dpy, XkbUseCoreKbd, arg->ui);
+        }
+    }
 }
