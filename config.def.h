@@ -12,12 +12,37 @@ static const char *fonts[] = {
 	"Terminus:size=14"
 };
 static const char dmenufont[]       = "Terminus:size=14";
-static const char normbordercolor[] = "#073642";
-static const char normbgcolor[]     = "#002b36";
-static const char normfgcolor[]     = "#839496";
-static const char selbordercolor[]  = "#268bd2";
-static const char selbgcolor[]      = "#268bd2";
-static const char selfgcolor[]      = "#eee8d5";
+#define SOLARIZED_BASE03    "#002b36"
+#define SOLARIZED_BASE02    "#073642"
+#define SOLARIZED_BASE01    "#586e75"
+#define SOLARIZED_BASE00    "#657b83"
+#define SOLARIZED_BASE0     "#839496"
+#define SOLARIZED_BASE1     "#93a1a1"
+#define SOLARIZED_BASE2     "#eee8d5"
+#define SOLARIZED_BASE3     "#fdf6e3"
+#define SOLARIZED_YELLOW    "#b58900"
+#define SOLARIZED_ORANGE    "#cb4b16"
+#define SOLARIZED_RED       "#dc322f"
+#define SOLARIZED_MAGENTA   "#d33682"
+#define SOLARIZED_VIOLET    "#6c71c4"
+#define SOLARIZED_BLUE      "#268bd2"
+#define SOLARIZED_CYAN      "#2aa198"
+#define SOLARIZED_GREEN     "#859900"
+#ifdef SOLARIZED_LIGHT
+static const char normbordercolor[] = SOLARIZED_BASE2;
+static const char normbgcolor[]     = SOLARIZED_BASE3;
+static const char normfgcolor[]     = SOLARIZED_BASE00;
+static const char selbordercolor[]  = SOLARIZED_BLUE;
+static const char selbgcolor[]      = SOLARIZED_BLUE;
+static const char selfgcolor[]      = SOLARIZED_BASE02;
+#else /* SOLARIZED_LIGHT */
+static const char normbordercolor[] = SOLARIZED_BASE02;
+static const char normbgcolor[]     = SOLARIZED_BASE03;
+static const char normfgcolor[]     = SOLARIZED_BASE0;
+static const char selbordercolor[]  = SOLARIZED_BLUE;
+static const char selbgcolor[]      = SOLARIZED_BLUE;
+static const char selfgcolor[]      = SOLARIZED_BASE2;
+#endif /* SOLARIZED_LIGHT */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
