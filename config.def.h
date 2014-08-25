@@ -90,6 +90,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-p", ">", NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
+static const char *xkillcmd[] = { "xkill", NULL };
 /* fn commands */
 static const char *audiolowervolumecmd[] = { "amixer", "-q", "set", "Master", "unmute", "5%-", NULL };
 static const char *audiomutecmd[] = { "amixer", "-q", "set", "Master", "mute", NULL };
@@ -126,6 +127,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_r,      setxkbgroup,    {.ui = 1 } },
 	{ MODKEY,                       XK_e,      setxkbgroup,    {.ui = 2 } },
 	{ MODKEY,                       XK_g,      setxkbgroup,    {.ui = 3 } },
+	{ MODKEY,                       XK_x,      spawn,          {.v = xkillcmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -145,6 +147,7 @@ static Key keys[] = {
     { 0,    XF86XK_AudioRaiseVolume,    spawn,  {.v = audioraisevolumecmd } },
     { 0,    XF86XK_AudioStop,           spawn,  {.v = audiostopcmd } },
     { 0,    XF86XK_ScreenSaver,         spawn,  {.v = screensavercmd } },
+
 };
 
 /* button definitions */
