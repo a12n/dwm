@@ -3,11 +3,6 @@
 #include <X11/XF86keysym.h>
 #include <X11/XKBlib.h>
 
-/* custom functions declarations */
-void bstack(Monitor *m);
-void nextlayout(const Arg *arg);
-void setxkbgroup(const Arg *arg);
-
 /* appearance */
 static const char *fonts[] = {
 	"Terminus:size=14"
@@ -71,10 +66,13 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "TTT",      bstack },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
+
+/* custom functions declarations */
+void nextlayout(const Arg *arg);
+void setxkbgroup(const Arg *arg);
 
 /* key definitions */
 #define MODKEY Mod4Mask
@@ -167,42 +165,6 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
-/* custom functions */
-
-void
-bstack(Monitor *m) {
-	int w, h, mh, mx, tx, ty, tw;
-	unsigned int i, n;
-	Client *c;
-
-	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
-	if(n == 0) {
-		return;
-	}
-	if(n > m->nmaster) {
-		mh = m->nmaster ? m->mfact * m->wh : 0;
-		tw = m->ww / (n - m->nmaster);
-		ty = m->wy + mh;
-	} else {
-		mh = m->wh;
-		tw = m->ww;
-		ty = m->wy;
-	}
-	for(i = mx = 0, tx = m->wx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
-		if(i < m->nmaster) {
-			w = (m->ww - mx) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx + mx, m->wy, w - (2 * c->bw), mh - (2 * c->bw), False);
-			mx += WIDTH(c);
-		} else {
-			h = m->wh - mh;
-			resize(c, tx, ty, tw - (2 * c->bw), h - (2 * c->bw), False);
-			if(tw != m->ww) {
-				tx += WIDTH(c);
-			}
-		}
-	}
-}
 
 void
 nextlayout(const Arg *arg) {
