@@ -127,6 +127,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,      setxkbgroup,    {.ui = 2 } },
 	{ MODKEY,                       XK_g,      setxkbgroup,    {.ui = 3 } },
 	{ MODKEY,                       XK_x,      spawn,          {.v = xkillcmd } },
+	{ MODKEY|ShiftMask,             XK_Delete, spawn,          {.v = screensavercmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
