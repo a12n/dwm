@@ -88,7 +88,7 @@ void setxkbgroup(const Arg *arg);
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-p", ">", NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
+static const char *termcmd[]  = { "urxvtc", NULL };
 static const char *xkillcmd[] = { "xkill", NULL };
 /* fn commands */
 static const char *audiolowervolumecmd[] = { "amixer", "-q", "set", "Master", "unmute", "5%-", NULL };
