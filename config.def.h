@@ -5,9 +5,9 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"Droid Sans Mono:size=12"
+	"PT Mono:size=13"
 };
-static const char dmenufont[]       = "Droid Sans Mono:size=12";
+static const char dmenufont[]       = "PT Mono:size=13";
 #define SOLARIZED_BASE03    "#002b36"
 #define SOLARIZED_BASE02    "#073642"
 #define SOLARIZED_BASE01    "#586e75"
