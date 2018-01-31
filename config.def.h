@@ -4,9 +4,11 @@
 #include <X11/XKBlib.h>
 
 /* appearance */
-static const char *fonts[] = {
-	"PT Mono:size=13"
-};
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int snap      = 32;       /* snap pixel */
+static const int showbar            = 1;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *fonts[]          = { "PT Mono:size=13" };
 static const char dmenufont[]       = "PT Mono:size=13";
 #define SOLARIZED_BASE03    "#002b36"
 #define SOLARIZED_BASE02    "#073642"
@@ -39,10 +41,10 @@ static const char selbordercolor[]  = SOLARIZED_BLUE;
 static const char selbgcolor[]      = SOLARIZED_BLUE;
 static const char selfgcolor[]      = SOLARIZED_BASE2;
 #endif /* SOLARIZED_LIGHT */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *colors[][3]      = {
+	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+};
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
