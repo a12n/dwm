@@ -94,12 +94,9 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "urxvtc", NULL };
 static const char *xkillcmd[] = { "xkill", NULL };
 /* fn commands */
-static const char *audiolowervolumecmd[] = { "amixer", "-q", "set", "Master", "unmute", "5%-", NULL };
-static const char *audiomutecmd[] = { "amixer", "-q", "set", "Master", "mute", NULL };
 static const char *audionextcmd[] = { "mpc", "-q", "next", NULL };
 static const char *audioplaycmd[] = { "mpc", "-q", "toggle", NULL };
 static const char *audioprevcmd[] = { "mpc", "-q", "prev", NULL };
-static const char *audioraisevolumecmd[] = { "amixer", "-q", "set", "Master", "unmute", "5%+", NULL };
 static const char *audiostopcmd[] = { "mpc", "-q", "stop", NULL };
 static const char *screensavercmd[] = { "slock", NULL };
 
@@ -142,12 +139,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
-    { 0,    XF86XK_AudioLowerVolume,    spawn,  {.v = audiolowervolumecmd } },
-    { 0,    XF86XK_AudioMute,           spawn,  {.v = audiomutecmd } },
     { 0,    XF86XK_AudioNext,           spawn,  {.v = audionextcmd } },
     { 0,    XF86XK_AudioPlay,           spawn,  {.v = audioplaycmd } },
     { 0,    XF86XK_AudioPrev,           spawn,  {.v = audioprevcmd } },
-    { 0,    XF86XK_AudioRaiseVolume,    spawn,  {.v = audioraisevolumecmd } },
     { 0,    XF86XK_AudioStop,           spawn,  {.v = audiostopcmd } },
     { 0,    XF86XK_ScreenSaver,         spawn,  {.v = screensavercmd } },
 
