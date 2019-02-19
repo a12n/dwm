@@ -10,37 +10,39 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "PT Mono:size=15" };
 static const char dmenufont[]       = "PT Mono:size=15";
-#define SOLARIZED_BASE03    "#002b36"
-#define SOLARIZED_BASE02    "#073642"
-#define SOLARIZED_BASE01    "#586e75"
-#define SOLARIZED_BASE00    "#657b83"
-#define SOLARIZED_BASE0     "#839496"
-#define SOLARIZED_BASE1     "#93a1a1"
-#define SOLARIZED_BASE2     "#eee8d5"
-#define SOLARIZED_BASE3     "#fdf6e3"
-#define SOLARIZED_YELLOW    "#b58900"
-#define SOLARIZED_ORANGE    "#cb4b16"
-#define SOLARIZED_RED       "#dc322f"
-#define SOLARIZED_MAGENTA   "#d33682"
-#define SOLARIZED_VIOLET    "#6c71c4"
-#define SOLARIZED_BLUE      "#268bd2"
-#define SOLARIZED_CYAN      "#2aa198"
-#define SOLARIZED_GREEN     "#859900"
-#ifdef SOLARIZED_LIGHT
+#if defined _SOLARIZED
+#   define SOLARIZED_BASE03  "#002b36"
+#   define SOLARIZED_BASE02  "#073642"
+#   define SOLARIZED_BASE01  "#586e75"
+#   define SOLARIZED_BASE00  "#657b83"
+#   define SOLARIZED_BASE0   "#839496"
+#   define SOLARIZED_BASE1   "#93a1a1"
+#   define SOLARIZED_BASE2   "#eee8d5"
+#   define SOLARIZED_BASE3   "#fdf6e3"
+#   define SOLARIZED_YELLOW  "#b58900"
+#   define SOLARIZED_ORANGE  "#cb4b16"
+#   define SOLARIZED_RED     "#dc322f"
+#   define SOLARIZED_MAGENTA "#d33682"
+#   define SOLARIZED_VIOLET  "#6c71c4"
+#   define SOLARIZED_BLUE    "#268bd2"
+#   define SOLARIZED_CYAN    "#2aa198"
+#   define SOLARIZED_GREEN   "#859900"
+#   if defined _LIGHT
 static const char normbordercolor[] = SOLARIZED_BASE2;
 static const char normbgcolor[]     = SOLARIZED_BASE3;
 static const char normfgcolor[]     = SOLARIZED_BASE00;
 static const char selbordercolor[]  = SOLARIZED_BLUE;
 static const char selbgcolor[]      = SOLARIZED_BLUE;
 static const char selfgcolor[]      = SOLARIZED_BASE02;
-#else /* SOLARIZED_LIGHT */
+#   else  /* _LIGHT */
 static const char normbordercolor[] = SOLARIZED_BASE02;
 static const char normbgcolor[]     = SOLARIZED_BASE03;
 static const char normfgcolor[]     = SOLARIZED_BASE0;
 static const char selbordercolor[]  = SOLARIZED_BLUE;
 static const char selbgcolor[]      = SOLARIZED_BLUE;
 static const char selfgcolor[]      = SOLARIZED_BASE2;
-#endif /* SOLARIZED_LIGHT */
+#   endif /* _LIGHT */
+#endif  /* _SOLARIZED */
 static const char *colors[][3]      = {
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
