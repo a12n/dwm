@@ -42,7 +42,7 @@ static const char selbordercolor[]  = SOLARIZED_BLUE;
 static const char selbgcolor[]      = SOLARIZED_BLUE;
 static const char selfgcolor[]      = SOLARIZED_BASE2;
 #   endif /* _LIGHT */
-#elif defined _GRUVBOX
+#else     /* _SOLARIZED */
 #   define GRUVBOX_DARK0          "#282828"
 #   define GRUVBOX_DARK1          "#3c3836"
 #   define GRUVBOX_DARK2          "#504945"
@@ -90,7 +90,7 @@ static const char selbordercolor[]  = GRUVBOX_NEUTRAL_BLUE;
 static const char selbgcolor[]      = GRUVBOX_NEUTRAL_BLUE;
 static const char selfgcolor[]      = GRUVBOX_LIGHT1;
 #   endif /* _LIGHT */
-#endif  /* _GRUVBOX */
+#endif    /* _SOLARIZED */
 static const char *colors[][3]      = {
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
