@@ -148,7 +148,7 @@ static const char *audionextcmd[] = { "mpc", "-q", "next", NULL };
 static const char *audioplaycmd[] = { "mpc", "-q", "toggle", NULL };
 static const char *audioprevcmd[] = { "mpc", "-q", "prev", NULL };
 static const char *audiostopcmd[] = { "mpc", "-q", "stop", NULL };
-static const char *screensavercmd[] = { "slock", NULL };
+static const char *screensavercmd[] = { "xset", "s", "activate", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
