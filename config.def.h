@@ -149,6 +149,9 @@ static const char *audioplaycmd[] = { "mpc", "-q", "toggle", NULL };
 static const char *audioprevcmd[] = { "mpc", "-q", "prev", NULL };
 static const char *audiostopcmd[] = { "mpc", "-q", "stop", NULL };
 static const char *screensavercmd[] = { "xset", "s", "activate", NULL };
+static const char *audioraisevolumecmd[] = { "amixer", "-q", "set", "Master", "2%+", NULL };
+static const char *audiolowervolumecmd[] = { "amixer", "-q", "set", "Master", "2%-", NULL };
+static const char *audiomutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -194,6 +197,9 @@ static Key keys[] = {
     { 0,    XF86XK_AudioPrev,           spawn,  {.v = audioprevcmd } },
     { 0,    XF86XK_AudioStop,           spawn,  {.v = audiostopcmd } },
     { 0,    XF86XK_ScreenSaver,         spawn,  {.v = screensavercmd } },
+    { 0,    XF86XK_AudioLowerVolume,    spawn,  {.v = audiolowervolumecmd } },
+    { 0,    XF86XK_AudioRaiseVolume,    spawn,  {.v = audioraisevolumecmd } },
+    { 0,    XF86XK_AudioMute,           spawn,  {.v = audiomutecmd } },
 
 };
 
