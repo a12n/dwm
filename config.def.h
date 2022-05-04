@@ -96,6 +96,25 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
+static const char *barcolors[] = {
+	"#000000",
+	"#7f0000",
+	"#007f00",
+	"#7f7f00",
+	"#00007f",
+	"#7f007f",
+	"#007f7f",
+	"#cccccc",
+	"#333333",
+	"#ff0000",
+	"#00ff00",
+	"#ffff00",
+	"#0000ff",
+	"#ff00ff",
+	"#00ffff",
+	"#ffffff",
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 

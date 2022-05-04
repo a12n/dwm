@@ -237,7 +237,7 @@ static void zoom(const Arg *arg);
 
 /* variables */
 static const char broken[] = "broken";
-static char stext[256];
+static char stext[512];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
@@ -264,6 +264,7 @@ static Atom wmatom[WMLast], netatom[NetLast];
 static int running = 1;
 static Cur *cursor[CurLast];
 static Clr **scheme;
+static Clr *barclrs;
 static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
@@ -697,6 +698,25 @@ dirtomon(int dir)
 }
 
 void
+resetfntlist(Fnt *orighead, Fnt *curhead)
+{
+	if (orighead != curhead) {
+		Fnt *f;
+		for (f = orighead; f->next; f = f->next);
+		f->next = curhead;
+		for (f = f->next; f->next != orighead; f = f->next);
+		f->next = NULL;
+	}
+}
+
+enum SgrFlags {
+	REVERSE = 1 << 0,
+	UNDERLINE = 1 << 1,
+	STRIKETHROUGH = 1 << 2,
+	OVERLINE = 1 << 3
+};
+
+void
 drawbar(Monitor *m)
 {
 	int x, w, tw = 0;
@@ -710,9 +730,160 @@ drawbar(Monitor *m)
 
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
+		char buffer[sizeof(stext)];
+		Clr scm[3];
+		int wr, rd;
+		int pw;
+		int fg = 7;
+		int bg = 0;
+		int fmt = 0;
+		int lp = lrpad / 2 - 2;
+		Fnt *fset = drw->fonts;
+
+		memcpy(scm, scheme[SchemeNorm], sizeof(scm));
+
+		drw_setscheme(drw, scm);
+
+		for (tw = 0, wr = 0, rd = 0; stext[rd]; rd++) {
+			if (stext[rd] == '' && stext[rd + 1] == '[') {
+				size_t alen = strspn(stext + rd + 2,
+						     "0123456789;");
+				if (stext[rd + alen + 2] == 'm') {
+					buffer[wr] = '\0';
+					tw += TEXTW(buffer) - lrpad;
+					wr = 0;
+
+					char *ep = stext + rd + 1;
+					while (*ep != 'm') {
+						unsigned v = strtoul(ep + 1, &ep, 10);
+						if (v == 0 || (v >= 10 && v <= 19)) {
+							int fi = v % 10;
+							Fnt *f;
+							Fnt *p;
+							resetfntlist(fset, drw->fonts);
+							for (p = NULL, f = fset; f && fi--; p = f, f = f->next);
+							if (f) {
+								if (p) {
+									p->next = NULL;
+									for (p = f; p->next; p = p->next);
+									p->next = fset;
+								}
+								drw_setfontset(drw, f);
+							} else {
+								drw_setfontset(drw, fset);
+							}
+						}
+					}
+
+					rd += alen + 2;
+					continue;
+				}
+			}
+			buffer[wr++] = stext[rd];
+		}
+		buffer[wr] = '\0';
+
+		tw += TEXTW(buffer) - lrpad / 2 + 2;
+		x = m->ww - tw;
+
+		resetfntlist(fset, drw->fonts);
+		drw_setfontset(drw, fset);
+
+		for (wr = 0, rd = 0; stext[rd]; rd++) {
+			if (stext[rd] == '' && stext[rd + 1] == '[') {
+				size_t alen = strspn(stext + rd + 2,
+						     "0123456789;");
+				if (stext[rd + alen + 2] == 'm') {
+					buffer[wr] = '\0';
+					pw = TEXTW(buffer) - lrpad;
+					drw_text(drw, x, 0, pw + lp, bh, lp, buffer, fmt & REVERSE);
+					if (fmt & UNDERLINE)
+						drw_rect(drw, x, (bh + drw->fonts->h) / 2, pw, 1, 1, fmt & REVERSE); 
+					if (fmt & STRIKETHROUGH)
+						drw_rect(drw, x, bh / 2, pw, 1, 1, fmt & REVERSE); 
+					if (fmt & OVERLINE)
+						drw_rect(drw, x, (bh - drw->fonts->h) / 2, pw, 1, 1, fmt & REVERSE); 
+					x += pw + lp;
+					lp = 0;
+
+					char *ep = stext + rd + 1;
+					while (*ep != 'm') {
+						unsigned v = strtoul(ep + 1, &ep, 10);
+						if (v == 0) {
+							memcpy(scm, scheme[SchemeNorm], sizeof(scm));
+							fg = 7;
+							bg = 0;
+							fmt = 0;
+							resetfntlist(fset, drw->fonts);
+							drw_setfontset(drw, fset);
+						} else if (v == 1) {
+							fg |= 8;
+							scm[0] = barclrs[fg];
+						} else if (v == 4) {
+							fmt |= UNDERLINE;
+						} else if (v == 7) {
+							fmt |= REVERSE;
+						} else if (v == 9) {
+							fmt |= STRIKETHROUGH;
+						} else if (v >= 10 && v <= 19) {
+							int fi = v % 10;
+							Fnt *f;
+							Fnt *p;
+							resetfntlist(fset, drw->fonts);
+							for (p = NULL, f = fset; f && fi--; p = f, f = f->next);
+							if (f) {
+								if (p) {
+									p->next = NULL;
+									for (p = f; p->next; p = p->next);
+									p->next = fset;
+								}
+								drw_setfontset(drw, f);
+							} else {
+								drw_setfontset(drw, fset);
+							}
+						} else if (v == 22) {
+							fg &= ~8;
+							scm[0] = barclrs[fg];
+						} else if (v == 24) {
+							fmt &= ~UNDERLINE;
+						} else if (v == 27) {
+							fmt &= ~REVERSE;
+						} else if (v == 29) {
+							fmt &= ~STRIKETHROUGH;
+						} else if (v >= 30 && v <= 37) {
+							fg = v % 10 | (fg & 8);
+							scm[0] = barclrs[fg];
+						} else if (v >= 40 && v <= 47) {
+							bg = v % 10;
+							scm[1] = barclrs[bg];
+						} else if (v == 53) {
+							fmt |= OVERLINE;
+						} else if (v == 55) {
+							fmt &= ~OVERLINE;
+						}
+					}
+
+					rd += alen + 2;
+					wr = 0;
+
+					drw_setscheme(drw, scm);
+					continue;
+				}
+			}
+			buffer[wr++] = stext[rd];
+		}
+
+		buffer[wr] = '\0';
+		pw = TEXTW(buffer) - lrpad;
+		drw_text(drw, x, 0, pw + lp, bh, lp, buffer, fmt & REVERSE);
+		if (fmt & UNDERLINE)
+			drw_rect(drw, x, (bh + drw->fonts->h) / 2, pw, 1, 1, fmt & REVERSE); 
+		if (fmt & STRIKETHROUGH)
+			drw_rect(drw, x, bh / 2, pw, 1, 1, fmt & REVERSE); 
+		if (fmt & OVERLINE)
+			drw_rect(drw, x, (bh - drw->fonts->h) / 2, pw, 1, 1, fmt & REVERSE); 
+
 		drw_setscheme(drw, scheme[SchemeNorm]);
-		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
-		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -1577,6 +1748,11 @@ setup(void)
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
+
+	barclrs = ecalloc(LENGTH(barcolors), sizeof(Clr));
+	for (i = 0; i < LENGTH(barcolors); i++)
+		drw_clr_create(drw, &barclrs[i], barcolors[i]);
+
 	/* init bars */
 	updatebars();
 	updatestatus();
