@@ -10,87 +10,53 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrains Mono:size=15" };
 static const char dmenufont[]       = "JetBrains Mono:size=15";
-#if defined _SOLARIZED
-#   define SOLARIZED_BASE03  "#002b36"
-#   define SOLARIZED_BASE02  "#073642"
-#   define SOLARIZED_BASE01  "#586e75"
-#   define SOLARIZED_BASE00  "#657b83"
-#   define SOLARIZED_BASE0   "#839496"
-#   define SOLARIZED_BASE1   "#93a1a1"
-#   define SOLARIZED_BASE2   "#eee8d5"
-#   define SOLARIZED_BASE3   "#fdf6e3"
-#   define SOLARIZED_YELLOW  "#b58900"
-#   define SOLARIZED_ORANGE  "#cb4b16"
-#   define SOLARIZED_RED     "#dc322f"
-#   define SOLARIZED_MAGENTA "#d33682"
-#   define SOLARIZED_VIOLET  "#6c71c4"
-#   define SOLARIZED_BLUE    "#268bd2"
-#   define SOLARIZED_CYAN    "#2aa198"
-#   define SOLARIZED_GREEN   "#859900"
-#   if defined _LIGHT
-static const char normbordercolor[] = SOLARIZED_BASE2;
-static const char normbgcolor[]     = SOLARIZED_BASE3;
-static const char normfgcolor[]     = SOLARIZED_BASE00;
-static const char selbordercolor[]  = SOLARIZED_BLUE;
-static const char selbgcolor[]      = SOLARIZED_BLUE;
-static const char selfgcolor[]      = SOLARIZED_BASE02;
-#   else  /* _LIGHT */
-static const char normbordercolor[] = SOLARIZED_BASE02;
-static const char normbgcolor[]     = SOLARIZED_BASE03;
-static const char normfgcolor[]     = SOLARIZED_BASE0;
-static const char selbordercolor[]  = SOLARIZED_BLUE;
-static const char selbgcolor[]      = SOLARIZED_BLUE;
-static const char selfgcolor[]      = SOLARIZED_BASE2;
-#   endif /* _LIGHT */
-#else     /* _SOLARIZED */
-#   define GRUVBOX_DARK0          "#282828"
-#   define GRUVBOX_DARK1          "#3c3836"
-#   define GRUVBOX_DARK2          "#504945"
-#   define GRUVBOX_DARK3          "#665C54"
-#   define GRUVBOX_DARK4          "#7C6F64"
-#   define GRUVBOX_GRAY           "#928374"
-#   define GRUVBOX_LIGHT0         "#FBF1C7"
-#   define GRUVBOX_LIGHT1         "#EBDBB2"
-#   define GRUVBOX_LIGHT2         "#D5C4A1"
-#   define GRUVBOX_LIGHT3         "#BDAE93"
-#   define GRUVBOX_LIGHT4         "#A89984"
-#   define GRUVBOX_BRIGHT_RED     "#FB4934"
-#   define GRUVBOX_BRIGHT_GREEN   "#B8BB26"
-#   define GRUVBOX_BRIGHT_YELLOW  "#FABD2F"
-#   define GRUVBOX_BRIGHT_BLUE    "#83A598"
-#   define GRUVBOX_BRIGHT_PURPLE  "#D3869B"
-#   define GRUVBOX_BRIGHT_AQUA    "#8EC07C"
-#   define GRUVBOX_BRIGHT_ORANGE  "#FE8019"
-#   define GRUVBOX_NEUTRAL_RED    "#CC241D"
-#   define GRUVBOX_NEUTRAL_GREEN  "#98971A"
-#   define GRUVBOX_NEUTRAL_YELLOW "#D79921"
-#   define GRUVBOX_NEUTRAL_BLUE   "#458588"
-#   define GRUVBOX_NEUTRAL_PURPLE "#B16286"
-#   define GRUVBOX_NEUTRAL_AQUA   "#689D6A"
-#   define GRUVBOX_NEUTRAL_ORANGE "#D65D0E"
-#   define GRUVBOX_FADED_RED      "#9D0006"
-#   define GRUVBOX_FADED_GREEN    "#79740E"
-#   define GRUVBOX_FADED_YELLOW   "#B57614"
-#   define GRUVBOX_FADED_BLUE     "#076678"
-#   define GRUVBOX_FADED_PURPLE   "#8F3F71"
-#   define GRUVBOX_FADED_AQUA     "#427B58"
-#   define GRUVBOX_FADED_ORANGE   "#AF3A03"
-#   if defined _LIGHT
+#define GRUVBOX_DARK0          "#282828"
+#define GRUVBOX_DARK1          "#3c3836"
+#define GRUVBOX_DARK2          "#504945"
+#define GRUVBOX_DARK3          "#665C54"
+#define GRUVBOX_DARK4          "#7C6F64"
+#define GRUVBOX_GRAY           "#928374"
+#define GRUVBOX_LIGHT0         "#FBF1C7"
+#define GRUVBOX_LIGHT1         "#EBDBB2"
+#define GRUVBOX_LIGHT2         "#D5C4A1"
+#define GRUVBOX_LIGHT3         "#BDAE93"
+#define GRUVBOX_LIGHT4         "#A89984"
+#define GRUVBOX_BRIGHT_RED     "#FB4934"
+#define GRUVBOX_BRIGHT_GREEN   "#B8BB26"
+#define GRUVBOX_BRIGHT_YELLOW  "#FABD2F"
+#define GRUVBOX_BRIGHT_BLUE    "#83A598"
+#define GRUVBOX_BRIGHT_PURPLE  "#D3869B"
+#define GRUVBOX_BRIGHT_AQUA    "#8EC07C"
+#define GRUVBOX_BRIGHT_ORANGE  "#FE8019"
+#define GRUVBOX_NEUTRAL_RED    "#CC241D"
+#define GRUVBOX_NEUTRAL_GREEN  "#98971A"
+#define GRUVBOX_NEUTRAL_YELLOW "#D79921"
+#define GRUVBOX_NEUTRAL_BLUE   "#458588"
+#define GRUVBOX_NEUTRAL_PURPLE "#B16286"
+#define GRUVBOX_NEUTRAL_AQUA   "#689D6A"
+#define GRUVBOX_NEUTRAL_ORANGE "#D65D0E"
+#define GRUVBOX_FADED_RED      "#9D0006"
+#define GRUVBOX_FADED_GREEN    "#79740E"
+#define GRUVBOX_FADED_YELLOW   "#B57614"
+#define GRUVBOX_FADED_BLUE     "#076678"
+#define GRUVBOX_FADED_PURPLE   "#8F3F71"
+#define GRUVBOX_FADED_AQUA     "#427B58"
+#define GRUVBOX_FADED_ORANGE   "#AF3A03"
+#if defined _LIGHT
 static const char normbordercolor[] = GRUVBOX_LIGHT1;
 static const char normbgcolor[]     = GRUVBOX_LIGHT0;
 static const char normfgcolor[]     = GRUVBOX_DARK1;
 static const char selbordercolor[]  = GRUVBOX_NEUTRAL_BLUE;
 static const char selbgcolor[]      = GRUVBOX_NEUTRAL_BLUE;
 static const char selfgcolor[]      = GRUVBOX_DARK1;
-#   else  /* _LIGHT */
+#else  /* _LIGHT */
 static const char normbordercolor[] = GRUVBOX_DARK1;
 static const char normbgcolor[]     = GRUVBOX_DARK0;
 static const char normfgcolor[]     = GRUVBOX_LIGHT1;
 static const char selbordercolor[]  = GRUVBOX_NEUTRAL_BLUE;
 static const char selbgcolor[]      = GRUVBOX_NEUTRAL_BLUE;
 static const char selfgcolor[]      = GRUVBOX_LIGHT1;
-#   endif /* _LIGHT */
-#endif    /* _SOLARIZED */
+#endif /* _LIGHT */
 static const char *colors[][3]      = {
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
