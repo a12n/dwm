@@ -63,26 +63,7 @@ static const char *colors[][3]      = {
 };
 
 static const char *barcolors[] = {
-#if defined _SOLARIZED
-	/* TODO */
-	"#000000",
-	"#7f0000",
-	"#007f00",
-	"#7f7f00",
-	"#00007f",
-	"#7f007f",
-	"#007f7f",
-	"#cccccc",
-	"#333333",
-	"#ff0000",
-	"#00ff00",
-	"#ffff00",
-	"#0000ff",
-	"#ff00ff",
-	"#00ffff",
-	"#ffffff",
-#else  /* _SOLARIZED */
-#   if defined _LIGHT
+#if defined _LIGHT
 	GRUVBOX_LIGHT0,
 	GRUVBOX_NEUTRAL_RED,
 	GRUVBOX_NEUTRAL_GREEN,
@@ -99,7 +80,7 @@ static const char *barcolors[] = {
 	GRUVBOX_FADED_PURPLE,
 	GRUVBOX_FADED_AQUA,
 	GRUVBOX_DARK1,
-#   else  /* _LIGHT */
+#else  /* _LIGHT */
 	GRUVBOX_DARK0,
 	GRUVBOX_NEUTRAL_RED,
 	GRUVBOX_NEUTRAL_GREEN,
@@ -116,8 +97,7 @@ static const char *barcolors[] = {
 	GRUVBOX_BRIGHT_PURPLE,
 	GRUVBOX_BRIGHT_AQUA,
 	GRUVBOX_LIGHT1,
-#   endif /* _LIGHT */
-#endif /* _SOLARIZED */
+#endif /* _LIGHT */
 };
 
 /* tagging */
