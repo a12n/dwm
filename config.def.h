@@ -48,7 +48,7 @@ static const char normbgcolor[]     = GRUVBOX_LIGHT0;
 static const char normfgcolor[]     = GRUVBOX_DARK1;
 static const char selbordercolor[]  = GRUVBOX_NEUTRAL_BLUE;
 static const char selbgcolor[]      = GRUVBOX_NEUTRAL_BLUE;
-static const char selfgcolor[]      = GRUVBOX_DARK1;
+static const char selfgcolor[]      = GRUVBOX_LIGHT1;
 #else  /* _LIGHT */
 static const char normbordercolor[] = GRUVBOX_DARK1;
 static const char normbgcolor[]     = GRUVBOX_DARK0;
